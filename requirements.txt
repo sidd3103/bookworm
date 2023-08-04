@@ -1,0 +1,15 @@
+asgiref @ file:///Users/ec2-user/ci_py311/asgiref_1678390266874/work
+black==23.7.0
+click==8.1.6
+Django @ file:///Users/ec2-user/ci_py311/django_1678411010555/work
+django-cors-headers==4.2.0
+djangorestframework @ file:///home/conda/feedstock_root/build_artifacts/djangorestframework_1663854154474/work
+djangorestframework-simplejwt==5.2.2
+mypy-extensions==1.0.0
+packaging==23.1
+pathspec==0.11.1
+platformdirs==3.9.1
+PyJWT==2.8.0
+python-decouple==3.8
+pytz @ file:///home/conda/feedstock_root/build_artifacts/pytz_1680088766131/work
+sqlparse @ file:///Users/ec2-user/ci_py311/sqlparse_1678394278812/work
