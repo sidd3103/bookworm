@@ -19,7 +19,6 @@ const ModalScreen = ({ navigation }) => {
   const [age, setAge] = useState(user.age);
   const [firstName, setFirstName] = useState(user.first_name);
   const [lastName, setLastName] = useState(user.last_name);
-  const [bio, setBio] = useState("");
 
   const incompleteForm = !email || !age || !firstName || !lastName;
 
@@ -103,17 +102,6 @@ const ModalScreen = ({ navigation }) => {
         keyboardType="number-pad"
         value={age.toString()}
         onChangeText={setAge}
-      />
-
-      <Text className="text-center p-4 font-bold text-purple-400 text-xl">
-        Short bio
-      </Text>
-      <TextInput
-        className="text-center text-lg pb-2"
-        placeholder="Enter your bio"
-        value={bio}
-        onChangeText={setBio}
-        multiline
       />
 
       <TouchableOpacity

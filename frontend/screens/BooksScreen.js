@@ -48,6 +48,7 @@ const BooksScreen = ({ navigation }) => {
       <TextInput
         className="text-center text-lg pb-2"
         placeholder="Comma separated values (max 5)"
+        multiline
         value={genres}
         onChangeText={setGenres}
       />
@@ -56,6 +57,7 @@ const BooksScreen = ({ navigation }) => {
         What are your favourite books?
       </Text>
       <TextInput
+        multiline
         className="text-center text-lg pb-2"
         placeholder="Comma separated values (max 5)"
         value={favs}
@@ -67,6 +69,7 @@ const BooksScreen = ({ navigation }) => {
       </Text>
       <TextInput
         className="text-center text-lg pb-2"
+        multiline
         placeholder="Comma separated values (max 5)"
         value={bucketList}
         onChangeText={setBucketList}
@@ -78,6 +81,7 @@ const BooksScreen = ({ navigation }) => {
       <TextInput
         className="text-center text-lg pb-2"
         placeholder="Comma separated values (max 5)"
+        multiline
         value={current}
         onChangeText={setCurrent}
       />

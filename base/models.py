@@ -23,7 +23,6 @@ class CustomUser(AbstractUser):
     last_name = models.CharField(max_length=255, null=True, blank=True)
     email = models.EmailField(max_length=100, unique=True, null=True, blank=True)
 
-    bio = models.TextField(max_length=300, null=True, blank=True)
     image = models.CharField(max_length=500, null=True, blank=True, default="")
     age = models.IntegerField(blank=True, validators=[AgeValidation], null=True)
     passes_swipes = models.JSONField(null=True, default=custom_callable)

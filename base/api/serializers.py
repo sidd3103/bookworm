@@ -18,7 +18,6 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         token["matches"] = user.matches
         token["matches_prev_len"] = user.matches_prev_len
         token["books"] = user.books
-        token["bio"] = user.bio
         # ...
 
         return token

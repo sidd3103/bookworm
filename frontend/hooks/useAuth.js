@@ -28,7 +28,6 @@ export const AuthProvider = ({ children }) => {
     "matches",
     "matches_prev_len",
     "books",
-    "bio",
   ];
 
   const generic_user_img = require("../assets/user.png");
@@ -51,6 +50,7 @@ export const AuthProvider = ({ children }) => {
           !user.passes_swipes.passes.includes(u.username) &&
           !user.passes_swipes.swipes.includes(u.username)
       );
+      users = users.map((u) => _.pick(u, userKeys));
       setProfiles(users);
     } catch (error) {
       console.log(error);
@@ -88,8 +88,8 @@ export const AuthProvider = ({ children }) => {
       let response = await axios.post(
         `${PORT}/api/token/`,
         {
-          username: username,
-          password: password,
+          username: "nush",
+          password: "nushiesiddie1",
         },
         {
           headers: {
@@ -195,6 +195,7 @@ export const AuthProvider = ({ children }) => {
       } else {
         checkMatch(passedUserName, updatedUser);
       }
+      // setProfiles(profiles.filter((p) => p.username !== passedUserName));
     } catch (error) {
       console.log(error);
     }

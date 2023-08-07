@@ -2,13 +2,14 @@ import {
   View,
   Text,
   Image,
-  SafeAreaView,
-  TouchableOpacity,
+  StyleSheet,
+  FlatList,
+  ScrollView,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import Swiper from "react-native-deck-swiper";
 import useAuth from "../hooks/useAuth";
-import { Entypo, AntDesign } from "@expo/vector-icons";
+import CardHeader from "./CardHeader";
 
 const UserCard = ({ swiperRef }) => {
   const { getUsers, profiles, passOrMatch } = useAuth();
@@ -17,13 +18,42 @@ const UserCard = ({ swiperRef }) => {
     getUsers();
   }, []);
 
-  const renderCard = (card, index) => {
+  const renderOne = (i, idx) => {
     return (
-      <View key={card.id} className="relative bg-red-500 h-3/4 rounded-xl">
-        <Image
-          source={{ uri: card.image }}
-          className="absolute top-0 h-full w-full rounded-xl"
-        />
+      <View key={idx} className="rounded-xl p-2 mx-2 my-1 bg-purple-100">
+        <Text className="text-center text-base">{i}</Text>
+      </View>
+    );
+  };
+
+  const renderCard = (card) => {
+    return (
+      <View
+        key={card.id}
+        className="bg-white h-3/4 rounded-xl"
+        style={styles.cardShadow}
+      >
+        <CardHeader card={card} />
+
+        <Text className="font-bold text-xl text-center">Favourites</Text>
+        <View className="flex-row flex-wrap">
+          {card.books.favourites.map(renderOne)}
+        </View>
+
+        <Text className="font-bold text-xl text-center">Genres</Text>
+        <View className="flex-row flex-wrap">
+          {card.books.genres.map(renderOne)}
+        </View>
+
+        <Text className="font-bold text-xl text-center">Currently Reading</Text>
+        <View className="flex-row flex-wrap">
+          {card.books.currently_reading.map(renderOne)}
+        </View>
+
+        <Text className="font-bold text-xl text-center">Bucket List</Text>
+        <View className="flex-row flex-wrap">
+          {card.books.bucket_list.map(renderOne)}
+        </View>
       </View>
     );
   };
@@ -54,5 +84,18 @@ const UserCard = ({ swiperRef }) => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  cardShadow: {
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 1.31,
+    elevation: 2,
+  },
+});
 
 export default UserCard;
