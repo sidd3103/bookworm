@@ -1,8 +1,9 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { createContext } from "react";
 import axios from "axios";
 import { useNavigation } from "@react-navigation/native";
 import jwt_decode from "jwt-decode";
+import { Alert } from "react-native";
 
 const _ = require("lodash");
 
@@ -88,8 +89,8 @@ export const AuthProvider = ({ children }) => {
       let response = await axios.post(
         `${PORT}/api/token/`,
         {
-          username: "nush",
-          password: "nushiesiddie1",
+          username,
+          password,
         },
         {
           headers: {
@@ -104,7 +105,9 @@ export const AuthProvider = ({ children }) => {
       setUser(decoded);
       navigation.navigate("home");
     } catch (error) {
-      console.log(error);
+      if (error.response.status === 401) {
+        Alert.alert("Incorrect username/password combination");
+      }
     }
   };
 

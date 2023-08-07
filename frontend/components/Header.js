@@ -1,8 +1,7 @@
 import { View, TouchableOpacity, Image } from "react-native";
 import React from "react";
 import useAuth from "../hooks/useAuth";
-import { AntDesign, Entypo, Ionicons } from "@expo/vector-icons";
-import data from "../data";
+import { Ionicons } from "@expo/vector-icons";
 
 const Header = ({ navigation }) => {
   const { user, logo_img, generic_user_img, logout } = useAuth();

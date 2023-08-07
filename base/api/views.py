@@ -39,7 +39,7 @@ def register(req):
         user = CustomUser.objects.create(username=req.data["username"])
         user.set_password(req.data["password"])
         user.save()
-        return Response(user)
+        return Response("success")
 
     else:
         users = CustomUser.objects.all()

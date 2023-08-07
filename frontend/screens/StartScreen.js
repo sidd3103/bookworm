@@ -16,9 +16,15 @@ const StartScreen = ({ navigation }) => {
 
   return (
     <View className="flex-1">
-      <ImageBackground className="flex-1" resizeMode="cover" source={bg_image}>
+      <ImageBackground
+        className="flex-1 justify-end items-center"
+        resizeMode="cover"
+        source={bg_image}
+      >
+        <Image source={logo_img} className="h-60 w-60 mb-56" />
+
         <TouchableOpacity
-          className="absolute bottom-40 w-52 bg-white p-4 rounded-2xl"
+          className="w-52 bg-white p-4 rounded-2xl mb-5"
           style={{ marginHorizontal: "25%" }}
           onPress={() => navigation.navigate("login")}
         >
@@ -26,7 +32,7 @@ const StartScreen = ({ navigation }) => {
         </TouchableOpacity>
 
         <TouchableOpacity
-          className="absolute bottom-20 w-52 bg-white p-4 rounded-2xl"
+          className="w-52 bg-white p-4 rounded-2xl mb-32 mt-5"
           style={{ marginHorizontal: "25%" }}
           onPress={() => navigation.navigate("register")}
         >
