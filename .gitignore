@@ -2,7 +2,7 @@
 .env
 # dependencies
 frontend/node_modules/
-
+frontend/ios/
 # Expo
 frontend/.expo/
 frontend/dist/

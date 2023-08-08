@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   Image,
 } from "react-native";
-import React, { useLayoutEffect, useState } from "react";
+import React from "react";
 import useAuth from "../hooks/useAuth";
 
 const StartScreen = ({ navigation }) => {

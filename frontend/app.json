@@ -20,7 +20,8 @@
         "NSPhotoLibraryUsageDescription": "PhotoLibrary for uploading photos",
         "NSCameraUsageDescription": "No usage",
         "NSMicrophoneUsageDescription": "No usage"
-      }    
+      },
+      "bundleIdentifier": "com.anonymous.bookworm"
     },
     "android": {
       "adaptiveIcon": {
