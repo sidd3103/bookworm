@@ -1,4 +1,4 @@
-import { View, Text, SafeAreaView } from "react-native";
+import { View, Text, SafeAreaView, ImageBackground } from "react-native";
 import React, { useEffect, useState } from "react";
 import ChatHeader from "../components/ChatHeader";
 import useAuth from "../hooks/useAuth";
@@ -6,17 +6,19 @@ import ChatList from "../components/ChatList";
 
 const ChatScreen = ({ navigation }) => {
   const [matches, setMatches] = useState([]);
-  const { user } = useAuth();
+  const { user, bg_image } = useAuth();
 
   useEffect(() => {
     setMatches(user.matches);
   }, [user]);
 
   return (
-    <SafeAreaView>
-      <ChatHeader title="Chat" navigation={navigation} />
-      <ChatList />
-    </SafeAreaView>
+    <ImageBackground source={bg_image} resizeMode="cover" className="flex-1">
+      <SafeAreaView>
+        <ChatHeader title="Chat" navigation={navigation} />
+        <ChatList />
+      </SafeAreaView>
+    </ImageBackground>
   );
 };
 

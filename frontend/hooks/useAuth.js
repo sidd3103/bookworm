@@ -16,7 +16,6 @@ export const AuthProvider = ({ children }) => {
   const [tokens, setTokens] = useState(null);
   const [user, setUser] = useState(null);
   const navigation = useNavigation();
-  const [profiles, setProfiles] = useState([]);
 
   const userKeys = [
     "first_name",
@@ -40,22 +39,6 @@ export const AuthProvider = ({ children }) => {
 
   const generatePairString = (s1, s2) => {
     return s1 > s2 ? `${s1}+${s2}` : `${s2}+${s1}`;
-  };
-
-  const getUsers = async () => {
-    try {
-      let response = await axios(`${PORT}/api/users`);
-      let users = response.data.filter((u) => u.username !== user.username);
-      users = users.filter(
-        (u) =>
-          !user.passes_swipes.passes.includes(u.username) &&
-          !user.passes_swipes.swipes.includes(u.username)
-      );
-      users = users.map((u) => _.pick(u, userKeys));
-      setProfiles(users);
-    } catch (error) {
-      console.log(error);
-    }
   };
 
   const register = async (username, password) => {
@@ -89,8 +72,8 @@ export const AuthProvider = ({ children }) => {
       let response = await axios.post(
         `${PORT}/api/token/`,
         {
-          username,
-          password,
+          username: "Sid",
+          password: "nushiesiddie1",
         },
         {
           headers: {
@@ -215,8 +198,6 @@ export const AuthProvider = ({ children }) => {
         register,
         logo_img,
         generic_user_img,
-        getUsers,
-        profiles,
         passOrMatch,
         PORT,
         userKeys,

@@ -1,20 +1,38 @@
-import {
-  View,
-  Text,
-  Image,
-  StyleSheet,
-  FlatList,
-  ScrollView,
-} from "react-native";
+import { View, Text, StyleSheet, Image } from "react-native";
 import React, { useEffect, useState } from "react";
 import Swiper from "react-native-deck-swiper";
 import useAuth from "../hooks/useAuth";
 import CardHeader from "./CardHeader";
+import axios from "axios";
+const _ = require("lodash");
+const sad = require("../assets/sad.png");
+const loading_gif = require("../assets/loading.gif");
 
 const UserCard = ({ swiperRef }) => {
-  const { getUsers, profiles, passOrMatch } = useAuth();
+  const { passOrMatch, user, PORT, userKeys } = useAuth();
+  const [profiles, setProfiles] = useState([]);
+  const [finished, setFinished] = useState(true);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    const getUsers = async () => {
+      try {
+        setLoading(true);
+        let response = await axios(`${PORT}/api/users`);
+        let users = response.data.filter((u) => u.username !== user.username);
+        users = users.filter(
+          (u) =>
+            !user.passes_swipes.passes.includes(u.username) &&
+            !user.passes_swipes.swipes.includes(u.username)
+        );
+        users = users.map((u) => _.pick(u, userKeys));
+        setProfiles(users);
+        setFinished(users.length === 0);
+        setLoading(false);
+      } catch (error) {
+        console.log(error);
+      }
+    };
     getUsers();
   }, []);
 
@@ -60,8 +78,16 @@ const UserCard = ({ swiperRef }) => {
 
   return (
     <View className="flex-1 -mt-6">
-      {profiles.length === 0 ? (
-        <Text>Loading</Text>
+      {loading ? (
+        <View className="flex justify-center items-center mt-64">
+          <Image className="h-40 w-40" source={loading_gif} />
+          <Text className="mt-2 text-2xl font-semibold">Loading Profiles</Text>
+        </View>
+      ) : finished ? (
+        <View className="flex justify-center items-center mt-64">
+          <Image className="h-40 w-40" source={sad} />
+          <Text className="mt-10 text-4xl font-semibold">No More Profiles</Text>
+        </View>
       ) : (
         <Swiper
           ref={swiperRef}
@@ -79,6 +105,7 @@ const UserCard = ({ swiperRef }) => {
             passOrMatch(profiles[cardIdx].username, "MATCH")
           }
           backgroundColor={"#4FD0E9"}
+          onSwipedAll={() => setFinished(true)}
         />
       )}
     </View>
