@@ -72,8 +72,8 @@ export const AuthProvider = ({ children }) => {
       let response = await axios.post(
         `${PORT}/api/token/`,
         {
-          username: "Sid",
-          password: "nushiesiddie1",
+          username,
+          password,
         },
         {
           headers: {
