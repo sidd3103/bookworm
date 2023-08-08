@@ -50,6 +50,8 @@ const MessageScreen = ({ navigation }) => {
       }
     };
     fetchMessages();
+    const interval = setInterval(fetchMessages, 2000);
+    return () => clearInterval(interval);
   }, [n]);
 
   return (

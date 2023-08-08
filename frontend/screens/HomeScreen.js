@@ -19,6 +19,7 @@ const HomeScreen = ({ navigation }) => {
   useEffect(() => {
     const checkMatchesLen = async () => {
       try {
+        // console.log("hello");
         if (user.matches_prev_len < user.matches.length) {
           let newMatchedUserName = user.matches.slice(-1);
           let newMatches = user.matches;
@@ -41,8 +42,11 @@ const HomeScreen = ({ navigation }) => {
         console.log(error);
       }
     };
+
     checkMatchesLen();
-  });
+    // const interval = setInterval(checkMatchesLen, 5000);
+    // return () => clearInterval(interval);
+  }, []);
 
   return (
     <ImageBackground className="flex-1" resizeMode="cover" source={bg_image}>
