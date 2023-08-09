@@ -4,56 +4,55 @@ import {
   SafeAreaView,
   ImageBackground,
 } from "react-native";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import useAuth from "../hooks/useAuth";
 import Header from "../components/Header";
 import UserCard from "../components/UserCard";
 import axios from "axios";
 const _ = require("lodash");
-import { Entypo, AntDesign } from "@expo/vector-icons";
+import { Entypo } from "@expo/vector-icons";
+import { useInterval } from "../hooks/useInterval";
 
 const HomeScreen = ({ navigation }) => {
-  const { bg_image, user, PORT, userKeys, setUser } = useAuth();
+  const { bg_image, PORT, userKeys, setUser, user } = useAuth();
   const swiperRef = useRef(null);
+  const [n, setN] = useState(0);
 
-  useEffect(() => {
-    const checkMatchesLen = async () => {
-      try {
-        // console.log("hello");
-        if (user.matches_prev_len < user.matches.length) {
-          let newMatchedUserName = user.matches.slice(-1);
-          let newMatches = user.matches;
-          newMatches.unshift(newMatches.pop());
-          let response = await axios(`${PORT}/api/users/${newMatchedUserName}`);
-          let newMatchedUser = _.pick(response.data, userKeys);
-          updatedUser = {
-            ...user,
-            matches_prev_len: user.matches_prev_len + 1,
-            matches: newMatches,
-          };
-          setUser(updatedUser);
-          await axios.put(`${PORT}/api/users/${user.username}`, updatedUser);
-          navigation.navigate("match", {
-            user: updatedUser,
-            matchedUser: newMatchedUser,
-          });
-        }
-      } catch (error) {
-        console.log(error);
+  const checkMatchesLen = async () => {
+    try {
+      let r = await axios(`${PORT}/api/users/${user.username}`);
+      let u = _.pick(r.data, userKeys);
+      if (u.matches_prev_len < u.matches.length) {
+        let newMatchedUserName = u.matches.slice(-1);
+        let newMatches = u.matches;
+        newMatches.unshift(newMatches.pop());
+        let response = await axios(`${PORT}/api/users/${newMatchedUserName}`);
+        let newMatchedUser = _.pick(response.data, userKeys);
+        updatedUser = {
+          ...u,
+          matches_prev_len: u.matches_prev_len + 1,
+          matches: newMatches,
+        };
+        setUser(updatedUser);
+        await axios.put(`${PORT}/api/users/${user.username}`, updatedUser);
+        navigation.navigate("match", {
+          user: updatedUser,
+          matchedUser: newMatchedUser,
+        });
       }
-    };
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-    checkMatchesLen();
-    // const interval = setInterval(checkMatchesLen, 5000);
-    // return () => clearInterval(interval);
-  }, []);
+  useInterval(checkMatchesLen, 10000);
 
   return (
     <ImageBackground className="flex-1" resizeMode="cover" source={bg_image}>
       <SafeAreaView className="flex-1">
         <Header navigation={navigation} />
         <UserCard swiperRef={swiperRef} />
-        <View className="flex flex-row justify-evenly bottom-10">
+        <View className="flex flex-row justify-evenly mt-12">
           <TouchableOpacity
             className="items-center justify-center rounded-full w-16 h-16 bg-red-200"
             onPress={() => swiperRef.current.swipeLeft()}
@@ -65,7 +64,7 @@ const HomeScreen = ({ navigation }) => {
             className="items-center justify-center rounded-full w-16 h-16 bg-green-200"
             onPress={() => swiperRef.current.swipeRight()}
           >
-            <AntDesign name="heart" color="green" size={24} />
+            <Entypo name="thumbs-up" color="green" size={24} />
           </TouchableOpacity>
         </View>
       </SafeAreaView>

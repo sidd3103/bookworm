@@ -48,12 +48,12 @@ const UserCard = ({ swiperRef }) => {
     return (
       <View
         key={card.id}
-        className="bg-white h-3/4 rounded-xl"
+        className="bg-white h-5/6 rounded-xl -mt-5"
         style={styles.cardShadow}
       >
         <CardHeader card={card} />
 
-        <Text className="font-bold text-xl text-center">Favourites</Text>
+        <Text className="font-bold text-xl text-center -mt-4">Favourites</Text>
         <View className="flex-row flex-wrap">
           {card.books.favourites.map(renderOne)}
         </View>

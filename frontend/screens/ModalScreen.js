@@ -52,7 +52,7 @@ const ModalScreen = ({ navigation }) => {
         Settings
       </Text>
 
-      <Text className="text-center p-4 font-bold text-purple-400 text-xl">
+      <Text className="text-center p-4 font-bold text-purple-600 text-xl">
         First Name
       </Text>
       <TextInput
@@ -62,7 +62,7 @@ const ModalScreen = ({ navigation }) => {
         onChangeText={setFirstName}
       />
 
-      <Text className="text-center p-4 font-bold text-purple-400 text-xl">
+      <Text className="text-center p-4 font-bold text-purple-600 text-xl">
         Last Name
       </Text>
       <TextInput
@@ -72,7 +72,7 @@ const ModalScreen = ({ navigation }) => {
         onChangeText={setLastName}
       />
 
-      <Text className="text-center p-4 font-bold text-purple-400 text-xl">
+      <Text className="text-center p-4 font-bold text-purple-600 text-xl">
         Profile Picture
       </Text>
       <TextInput
@@ -82,7 +82,7 @@ const ModalScreen = ({ navigation }) => {
         onChangeText={setImage}
       />
 
-      <Text className="text-center p-4 font-bold text-purple-400 text-xl">
+      <Text className="text-center p-4 font-bold text-purple-600 text-xl">
         Email Address
       </Text>
       <TextInput
@@ -93,7 +93,7 @@ const ModalScreen = ({ navigation }) => {
         onChangeText={setEmail}
       />
 
-      <Text className="text-center p-4 font-bold text-purple-400 text-xl">
+      <Text className="text-center p-4 font-bold text-purple-600 text-xl">
         Age
       </Text>
       <TextInput
@@ -105,7 +105,7 @@ const ModalScreen = ({ navigation }) => {
       />
 
       <TouchableOpacity
-        className="w-32 p-3 m-10 rounded-xl bg-purple-400 "
+        className="w-32 p-3 m-10 rounded-xl bg-purple-500 mt-5"
         onPress={() => navigation.navigate("books")}
       >
         <Text className="text-center text-white font-semibold">Add Books</Text>
@@ -113,8 +113,8 @@ const ModalScreen = ({ navigation }) => {
 
       <TouchableOpacity
         disabled={incompleteForm}
-        className={`w-64 p-3 rounded-xl ${
-          incompleteForm ? "bg-gray-400" : "bg-purple-500"
+        className={`w-64 p-3 rounded-xl -mt-3 ${
+          incompleteForm ? "bg-gray-400" : "bg-purple-700"
         }`}
         onPress={() => update(firstName, lastName, image, email, age)}
       >

@@ -8,6 +8,7 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   FlatList,
+  ImageBackground,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { useRoute } from "@react-navigation/native";
@@ -20,7 +21,7 @@ import axios from "axios";
 const MessageScreen = ({ navigation }) => {
   const { params } = useRoute();
   const { matchedUser } = params;
-  const { user, generatePairString, PORT } = useAuth();
+  const { user, generatePairString, PORT, bg_image } = useAuth();
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState([]);
   const matchId = generatePairString(user.username, matchedUser.username);
@@ -28,13 +29,15 @@ const MessageScreen = ({ navigation }) => {
 
   const sendMessage = async () => {
     try {
-      await axios.post(`${PORT}/api/matches/${matchId}`, {
-        content: input,
-        sender: user.username,
-        image: user.image,
-      });
-      setInput("");
-      setN(n + 1);
+      if (input) {
+        await axios.post(`${PORT}/api/matches/${matchId}`, {
+          content: input,
+          sender: user.username,
+          image: user.image,
+        });
+        setInput("");
+        setN(n + 1);
+      }
     } catch (error) {
       console.log(error);
     }
@@ -55,40 +58,42 @@ const MessageScreen = ({ navigation }) => {
   }, [n]);
 
   return (
-    <SafeAreaView className="flex-1">
-      <ChatHeader title={matchedUser.username} navigation={navigation} />
-      <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
-        className="flex-1"
-        keyboardVerticalOffset={10}
-      >
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-          <FlatList
-            className="pl-4"
-            data={messages}
-            keyExtractor={(i, idx) => idx}
-            renderItem={({ item: message }) =>
-              message.sender === user.username ? (
-                <SenderMessage message={message} />
-              ) : (
-                <ReceiverMessage message={message} />
-              )
-            }
-          />
-        </TouchableWithoutFeedback>
+    <ImageBackground source={bg_image} resizeMode="cover" className="flex-1">
+      <SafeAreaView className="flex-1">
+        <ChatHeader title={matchedUser.username} navigation={navigation} />
+        <KeyboardAvoidingView
+          behavior={Platform.OS === "ios" ? "padding" : "height"}
+          className="flex-1"
+          keyboardVerticalOffset={10}
+        >
+          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+            <FlatList
+              className="pl-4"
+              data={messages}
+              keyExtractor={(i, idx) => idx}
+              renderItem={({ item: message }) =>
+                message.sender === user.username ? (
+                  <SenderMessage message={message} />
+                ) : (
+                  <ReceiverMessage message={message} />
+                )
+              }
+            />
+          </TouchableWithoutFeedback>
 
-        <View className="flex-row justify-between items-center border-t border-gray-200 px-5 py-2">
-          <TextInput
-            value={input}
-            placeholder="Send input..."
-            onChangeText={setInput}
-            className="h-10 text-lg"
-          />
+          <View className="flex-row justify-between items-center border-t border-gray-200 px-5 py-2">
+            <TextInput
+              value={input}
+              placeholder="Send input..."
+              onChangeText={setInput}
+              className="h-10 text-lg"
+            />
 
-          <Button title="Send" color="purple" onPress={sendMessage} />
-        </View>
-      </KeyboardAvoidingView>
-    </SafeAreaView>
+            <Button title="Send" color="purple" onPress={sendMessage} />
+          </View>
+        </KeyboardAvoidingView>
+      </SafeAreaView>
+    </ImageBackground>
   );
 };
 

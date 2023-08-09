@@ -1,7 +1,16 @@
-import { View, Text, Image, TouchableOpacity, TextInput } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  TextInput,
+  Keyboard,
+  TouchableWithoutFeedback,
+} from "react-native";
 import React, { useEffect, useState } from "react";
 import useAuth from "../hooks/useAuth";
 import axios from "axios";
+import { ScrollView } from "react-native-web";
 
 const BooksScreen = ({ navigation }) => {
   const { user, logo_img, PORT, setUser } = useAuth();
@@ -39,60 +48,66 @@ const BooksScreen = ({ navigation }) => {
   };
 
   return (
-    <View className="flex-1 items-center pt-5">
-      <Image source={logo_img} resizeMode="contain" className="h-20 w-full" />
-      <Text className="text-3xl text-gray-500 pt-2 pb-16 font-bold">Books</Text>
-      <Text className="text-center p-4 font-bold text-purple-400 text-xl">
-        What genres do you like?
-      </Text>
-      <TextInput
-        className="text-center text-lg pb-2"
-        placeholder="Comma separated values (max 5)"
-        multiline
-        value={genres}
-        onChangeText={setGenres}
-      />
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <View className="flex-1 items-center pt-5">
+        <Image source={logo_img} resizeMode="contain" className="h-20 w-full" />
+        <Text className="text-3xl text-gray-500 pt-2 pb-16 font-bold">
+          Books
+        </Text>
+        <Text className="text-center p-4 font-bold text-purple-600 text-xl">
+          What genres do you like?
+        </Text>
+        <TextInput
+          className="text-center text-lg pb-2"
+          placeholder="Comma separated values (max 5)"
+          multiline
+          value={genres}
+          onChangeText={setGenres}
+        />
 
-      <Text className="text-center p-4 font-bold text-purple-400 text-xl">
-        What are your favourite books?
-      </Text>
-      <TextInput
-        multiline
-        className="text-center text-lg pb-2"
-        placeholder="Comma separated values (max 5)"
-        value={favs}
-        onChangeText={setFavs}
-      />
+        <Text className="text-center p-4 font-bold text-purple-600 text-xl">
+          What are your favourite books?
+        </Text>
+        <TextInput
+          multiline
+          className="text-center text-lg pb-2"
+          placeholder="Comma separated values (max 5)"
+          value={favs}
+          onChangeText={setFavs}
+        />
 
-      <Text className="text-center p-4 font-bold text-purple-400 text-xl">
-        What books are on your bucketlist?
-      </Text>
-      <TextInput
-        className="text-center text-lg pb-2"
-        multiline
-        placeholder="Comma separated values (max 5)"
-        value={bucketList}
-        onChangeText={setBucketList}
-      />
+        <Text className="text-center p-4 font-bold text-purple-600 text-xl">
+          What books are on your bucketlist?
+        </Text>
+        <TextInput
+          className="text-center text-lg pb-2"
+          multiline
+          placeholder="Comma separated values (max 5)"
+          value={bucketList}
+          onChangeText={setBucketList}
+        />
 
-      <Text className="text-center p-4 font-bold text-purple-400 text-xl">
-        What books are you currently reading?
-      </Text>
-      <TextInput
-        className="text-center text-lg pb-2"
-        placeholder="Comma separated values (max 5)"
-        multiline
-        value={current}
-        onChangeText={setCurrent}
-      />
+        <Text className="text-center p-4 font-bold text-purple-600 text-xl">
+          What books are you currently reading?
+        </Text>
+        <TextInput
+          className="text-center text-lg pb-2"
+          placeholder="Comma separated values (max 5)"
+          multiline
+          value={current}
+          onChangeText={setCurrent}
+        />
 
-      <TouchableOpacity
-        className="w-64 p-3 rounded-xl absolute bottom-10 bg-purple-400"
-        onPress={updateBooks}
-      >
-        <Text className="text-center text-white text-xl">Update Book Info</Text>
-      </TouchableOpacity>
-    </View>
+        <TouchableOpacity
+          className="w-64 p-3 rounded-xl mt-12 bg-purple-700"
+          onPress={updateBooks}
+        >
+          <Text className="text-center text-white text-xl">
+            Update Book Info
+          </Text>
+        </TouchableOpacity>
+      </View>
+    </TouchableWithoutFeedback>
   );
 };
 
