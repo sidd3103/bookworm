@@ -37,36 +37,30 @@ export const AuthProvider = ({ children }) => {
     uri: "https://img.freepik.com/free-photo/design-space-paper-textured-background_53876-42776.jpg?w=2000&t=st=1691128720~exp=1691129320~hmac=4f67bcb4a8eaa6c3de497021fdcbe1067a6e3e885236a39a246a2d0dc34fcc2b",
   };
 
+  /**
+   *
+   * @param {*} s1: string username 1
+   * @param {*} s2: string username 2
+   * @returns string : the unique match id of two users. It's unique because usernames are always unique
+   */
   const generatePairString = (s1, s2) => {
     return s1 > s2 ? `${s1}+${s2}` : `${s2}+${s1}`;
   };
 
-  const register = async (username, password) => {
-    try {
-      let response = await axios.post(
-        `${PORT}/api/users`,
-        {
-          username,
-          password,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-          },
-        }
-      );
-      navigation.navigate("start");
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
+  /**
+   * This function logs the user out
+   */
   const logout = () => {
     setTokens(null);
     setUser(null);
   };
 
+  /**
+   *
+   * @param {*} username: string
+   * @param {*} password: string
+   * This method sends a post request to the backend to log in a user if the credentials match (JWT Authentication)
+   */
   const login = async (username, password) => {
     try {
       let response = await axios.post(
@@ -94,6 +88,12 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  /**
+   *
+   * @param {*} currentUser: object
+   * @param {*} matchedUser: object
+   * This function updates the matches attribute for both the users (the one we swiped right on, and the user that swiped right on us)
+   */
   const updateMatches = async (currentUser, matchedUser) => {
     try {
       let matchesForCurrentUser = [
@@ -126,6 +126,12 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  /**
+   *
+   * @param {*} passedUserName username of the user we swiped right on
+   * @param {*} updatedUser current user with the updated passes_swipes attribute
+   * This method checks if the user we swiped right on, also right swiped us
+   */
   const checkMatch = async (passedUserName, updatedUser) => {
     try {
       let response = await axios(`${PORT}/api/users/${passedUserName}`);
@@ -151,6 +157,12 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  /**
+   *
+   * @param {*} passedUserName: string, username of the user that the current user swiped left/right on
+   * @param {*} fun: string ['PASS', 'MATCH']
+   * This method updates the pass/swipe attribute of the current user
+   */
   const passOrMatch = async (passedUserName, fun) => {
     try {
       let users =
@@ -195,7 +207,6 @@ export const AuthProvider = ({ children }) => {
         login,
         logout,
         bg_image,
-        register,
         logo_img,
         generic_user_img,
         passOrMatch,

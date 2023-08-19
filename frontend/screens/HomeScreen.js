@@ -16,8 +16,23 @@ import { useInterval } from "../hooks/useInterval";
 const HomeScreen = ({ navigation }) => {
   const { bg_image, PORT, userKeys, setUser, user } = useAuth();
   const swiperRef = useRef(null);
-  const [n, setN] = useState(0);
 
+  /**
+   * This method is called every 10 seconds
+   * It checks if a user that we already swiped right on, also swiped right on us and if they did, displays the MatchScreen
+   * Basically checks for database changes
+   * The matches_prev_len attribute of a user is updated only in this function.
+   *
+   * There's two cases when a match happens:
+   * 1) We right swiped on someone that already right swiped us
+   * 2) We get right swiped by someone that we already right swiped
+   *
+   * In the second case, when the other user right swipes us and the updateMatches() function updates our matches attribute,
+   * it doesn't update the matches_prev_len attribute. So we check the length of the matches attribute with the matches_prev_len attribute
+   * to see if someone right swiped us while we are still logged in to the app.
+   *
+   * Another use case: let's say a user logs in and while they were logged out, there were new matches. To notify the user of those matches, this function is used.
+   */
   const checkMatchesLen = async () => {
     try {
       let r = await axios(`${PORT}/api/users/${user.username}`);

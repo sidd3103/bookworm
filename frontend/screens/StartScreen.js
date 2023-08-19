@@ -11,6 +11,10 @@ import {
 import React from "react";
 import useAuth from "../hooks/useAuth";
 
+/**
+ * This is the starting point of the app, where users can either choose to login or register.
+ */
+
 const StartScreen = ({ navigation }) => {
   const { bg_image, logo_img } = useAuth();
 

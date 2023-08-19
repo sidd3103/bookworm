@@ -11,7 +11,7 @@ import useAuth from "../hooks/useAuth";
 import { FontAwesome5 } from "@expo/vector-icons";
 
 const LoginScreen = ({ navigation }) => {
-  const { bg_image, login, logo_img } = useAuth();
+  const { bg_image, logo_img, login } = useAuth();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);

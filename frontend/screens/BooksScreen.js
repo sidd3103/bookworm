@@ -12,6 +12,9 @@ import useAuth from "../hooks/useAuth";
 import axios from "axios";
 import { ScrollView } from "react-native-web";
 
+/**
+ * This screen allows the user to change it's book data, such as favourite books, authors, etc.
+ */
 const BooksScreen = ({ navigation }) => {
   const { user, logo_img, PORT, setUser } = useAuth();
 
@@ -25,6 +28,9 @@ const BooksScreen = ({ navigation }) => {
   );
   const [genres, setGenres] = useState(user.books.genres.toString());
 
+  /**
+   * This method sends a put request to change the user's book data
+   */
   const updateBooks = async () => {
     try {
       updatedBooks = {

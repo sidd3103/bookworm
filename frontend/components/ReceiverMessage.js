@@ -2,6 +2,12 @@ import { View, Text, Image } from "react-native";
 import React from "react";
 import useAuth from "../hooks/useAuth";
 
+/**
+ *
+ * @props message: Message to be rendered
+ * @returns : a receiver message component
+ */
+
 const ReceiverMessage = ({ message }) => {
   const { generic_user_img } = useAuth();
   return (

@@ -15,6 +15,9 @@ const UserCard = ({ swiperRef }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    /**
+     * This method gets all the users that we haven't already swiped or passed
+     */
     const getUsers = async () => {
       try {
         setLoading(true);

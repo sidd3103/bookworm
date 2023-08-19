@@ -4,6 +4,9 @@ import { useRoute } from "@react-navigation/native";
 
 const matchImg = require("../assets/match.png");
 
+/**
+ * This screen appears whenever a user matches with someone.
+ */
 const MatchScreen = ({ navigation }) => {
   const { params } = useRoute();
   const { user, matchedUser } = params;

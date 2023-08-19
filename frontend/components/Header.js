@@ -3,6 +3,9 @@ import React from "react";
 import useAuth from "../hooks/useAuth";
 import { Ionicons } from "@expo/vector-icons";
 
+/**
+ * This is the header component of the HomeScreen
+ */
 const Header = ({ navigation }) => {
   const { user, logo_img, generic_user_img, logout } = useAuth();
 

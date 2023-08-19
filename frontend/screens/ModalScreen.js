@@ -12,6 +12,10 @@ import React, { useState } from "react";
 import useAuth from "../hooks/useAuth";
 import axios from "axios";
 
+/**
+ * This screen is where the user can change it's profile, such as firstname, lastname, profile picture, email, etc.
+ */
+
 const ModalScreen = ({ navigation }) => {
   const { user, logo_img, PORT, setUser } = useAuth();
   const [image, setImage] = useState(null);
@@ -22,6 +26,9 @@ const ModalScreen = ({ navigation }) => {
 
   const incompleteForm = !email || !age || !firstName || !lastName;
 
+  /**
+   * This method sends a put request to the backend to change the user's profile settings
+   */
   const update = async () => {
     try {
       let updatedUser = {

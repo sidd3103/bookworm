@@ -18,6 +18,10 @@ import SenderMessage from "../components/SenderMessage";
 import ReceiverMessage from "../components/ReceiverMessage";
 import axios from "axios";
 
+/**
+ * This screen shows all the messages between a user and another matched user, and allows real-time chat between the two users
+ */
+
 const MessageScreen = ({ navigation }) => {
   const { params } = useRoute();
   const { matchedUser } = params;
@@ -25,8 +29,11 @@ const MessageScreen = ({ navigation }) => {
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState([]);
   const matchId = generatePairString(user.username, matchedUser.username);
-  const [n, setN] = useState(0);
+  const [n, setN] = useState(0); //This is dummy state value that changes everytime you send a message, to trigger a rerender
 
+  /**
+   * This method sends a post request creating a new message object between the two users.
+   */
   const sendMessage = async () => {
     try {
       if (input) {
@@ -44,6 +51,9 @@ const MessageScreen = ({ navigation }) => {
   };
 
   useEffect(() => {
+    /**
+     * This method fetches all the messages between the two users
+     */
     const fetchMessages = async () => {
       try {
         let response = await axios(`${PORT}/api/matches/${matchId}`);

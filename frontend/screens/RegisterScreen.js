@@ -11,6 +11,10 @@ import useAuth from "../hooks/useAuth";
 import { FontAwesome5 } from "@expo/vector-icons";
 import axios from "axios";
 
+/**
+ *  This is the register screen, where a new user can create an account by choosing a username and password.
+ */
+
 const RegisterScreen = ({ navigation }) => {
   const { bg_image, logo_img, PORT } = useAuth();
   const [username, setUsername] = useState("");
@@ -19,6 +23,9 @@ const RegisterScreen = ({ navigation }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
+  /**
+   * This method sends a post request to the backend to create a new user.
+   */
   const register = async () => {
     try {
       await axios.post(

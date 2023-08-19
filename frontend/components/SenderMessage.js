@@ -1,6 +1,11 @@
 import { View, Text } from "react-native";
 import React from "react";
 
+/**
+ *
+ * @props message: Message to be rendered
+ * @returns : a sender message component
+ */
 const SenderMessage = ({ message }) => {
   return (
     <View

@@ -4,6 +4,9 @@ import ChatHeader from "../components/ChatHeader";
 import useAuth from "../hooks/useAuth";
 import ChatList from "../components/ChatList";
 
+/**
+ * This is the screen that displays all your active chats with people you have matched.
+ */
 const ChatScreen = ({ navigation }) => {
   const [matches, setMatches] = useState([]);
   const { user, bg_image } = useAuth();
