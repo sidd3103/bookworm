@@ -18,6 +18,30 @@ def custom_callable_books():
     return {"favourites": [], "bucket_list": [], "currently_reading": [], "genres": []}
 
 
+"""
+Custom user class
+CustomUser : {
+    first_name: string,
+    last_name: string,
+    email: string,
+    image: string,
+    age: Integer,
+    passes_swipes: {
+        passes: List[string],
+        swipes: List[string]
+    },
+    matches: List[string],
+    matches_prev_len: Integer,
+    books: {
+        favourites: List[string],
+        bucket_list: List[string],
+        currently_reading: List[string],
+        genres: List[string]
+    }
+}
+"""
+
+
 class CustomUser(AbstractUser):
     first_name = models.CharField(max_length=255, null=True, blank=True)
     last_name = models.CharField(max_length=255, null=True, blank=True)
@@ -34,8 +58,21 @@ class CustomUser(AbstractUser):
     EMAIL_FIELD = "email"
 
 
+"""
+Match Object
+id is the unique identifier of a match between two users
+"""
+
+
 class Match(models.Model):
     id = models.CharField(max_length=301, unique=True, primary_key=True)
+
+
+"""
+Message object
+Each message object is related to a match object by a many-to-one relationship 
+(a match can have multiple messages, a message can only belong to one match)
+"""
 
 
 class Message(models.Model):

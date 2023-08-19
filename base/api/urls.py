@@ -6,12 +6,14 @@ from rest_framework_simplejwt.views import (
 
 from .views import MyTokenObtainPairView
 
+# All the api endpoints
+
 urlpatterns = [
     path("", view=views.getRoutes),
     path("token/", MyTokenObtainPairView.as_view(), name="token_obtain_pair"),
     path("token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
     path("users", views.register, name="register"),
-    path("users/<str:pk>", views.update_user, name="update"),
+    path("users/<str:pk>", views.update_or_get_user, name="update"),
     path("matches", views.match, name="match"),
     path("matches/<str:pk>", views.messages, name="messages"),
 ]

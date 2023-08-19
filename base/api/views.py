@@ -16,17 +16,6 @@ class MyTokenObtainPairView(TokenObtainPairView):
     serializer_class = MyTokenObtainPairSerializer
 
 
-# keys = [
-#     "first_name",
-#     "last_name",
-#     "email",
-#     "username",
-#     "image",
-#     "age",
-#     "passes_swipes",
-# ]
-
-
 @api_view(["GET"])
 def getRoutes(req):
     routes = ["api/token", "api/token/refresh"]
@@ -35,12 +24,13 @@ def getRoutes(req):
 
 @api_view(["POST", "GET"])
 def register(req):
+    # Create a new user
     if req.method == "POST":
         user = CustomUser.objects.create(username=req.data["username"])
         user.set_password(req.data["password"])
         user.save()
         return Response("success")
-
+    # Get all users
     else:
         users = CustomUser.objects.all()
         serializer = UserSerializer(users, many=True)
@@ -48,7 +38,8 @@ def register(req):
 
 
 @api_view(["PUT", "GET"])
-def update_user(req, pk):
+def update_or_get_user(req, pk):
+    # Update user
     if req.method == "PUT":
         data = req.data
         user = CustomUser.objects.get(username=pk)
@@ -57,7 +48,7 @@ def update_user(req, pk):
             serializer.save()
 
         return Response(serializer.data)
-
+    # Get user
     if req.method == "GET":
         user = CustomUser.objects.get(username=pk)
         serializer = UserSerializer(user, many=False)
@@ -66,6 +57,7 @@ def update_user(req, pk):
 
 @api_view(["POST", "GET"])
 def match(req):
+    # Create a new match object
     if req.method == "POST":
         serializer = MatchSerializer(data=req.data)
         if serializer.is_valid():
@@ -73,6 +65,7 @@ def match(req):
 
         return Response(serializer.data)
 
+    # Get a match object
     if req.method == "GET":
         matches = Match.objects.all()
         serializer = MatchSerializer(matches, many=True)
